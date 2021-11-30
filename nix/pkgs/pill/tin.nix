@@ -3,20 +3,19 @@
 
 let
 
-  lfs = fetchGitHubLFS { src = ../../../bin/brass.pill; };
+  lfs = fetchGitHubLFS { src = ../../../bin/tin.pill; };
 
 in {
   build = import ./builder.nix {
     inherit stdenvNoCC urbit herb;
 
-    name = "brass" + lib.optionalString withRopsten "-ropsten";
-    builder = ./brass.sh;
+    name = "tin" + lib.optionalString withRopsten "-ropsten";
+    builder = ./tin.sh;
     arvo = if withRopsten then arvo.ropsten else arvo;
     pier = bootFakeShip {
       inherit urbit herb;
-
-      #pill = "/Users/philip/source/urbit/bin/brass.pill";
-      pill = solid.lfs;
+      pill = "/Users/philip/source/urbit/bin/solid.pill";
+      #pill = solid.lfs;
       ship = "zod";
     };
   };

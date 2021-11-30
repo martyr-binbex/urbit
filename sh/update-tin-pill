@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -xeuo pipefail
+
+cd "${0%/*}/.."
+
+cp "$(nix-build -A tin.build --no-out-link --show-trace)" bin/tin.pill

@@ -27,6 +27,7 @@
      $ nix-build -A ivory.build
      $ nix-build -A brass.build
      $ nix-build -A solid.build
+     $ nix-build -A tin.build
 
    Run the king-haskell checks (.tests are _build_ the test code, .checks _runs_):
 
@@ -106,6 +107,8 @@ let
 
     solid = callPackage ./nix/pkgs/pill/solid.nix { };
 
+    tin = callPackage ./nix/pkgs/pill/tin.nix { };
+
     marsSources = callPackage ./nix/pkgs/marsSources { };
 
     urbit = callPackage ./nix/pkgs/urbit { inherit enableStatic; };
@@ -141,6 +144,7 @@ let
 
     ivory-ropsten = ivory.override { arvo = arvo.ropsten; };
     brass-ropsten = brass.override { arvo = arvo.ropsten; };
+    tin-ropsten   = tin.override   { arvo = arvo.ropsten; };
 
     # Create a .tgz of the primary binaries.
     tarball = let

@@ -1,6 +1,7 @@
-::  Produce a brass pill
+::  Produce a tin pill - a minimal pill with only a 
+::  precompiled hoon compiler
 ::
-::::  /hoon/brass/gen
+::::  
   ::
 /?    310
 /+  pill
@@ -11,6 +12,7 @@
 |=  $:  [now=@da eny=@uvJ bec=beak]
       ::
         ::  arg: desks to build pill from
+        ::
         ::
         ::    list of desks. defaults to [%base]~.
         ::    the first desk in this list will become the pill's base desk.
@@ -26,6 +28,7 @@
       ::
         ~
     ==
+~&  "running +tin"
 :-  %boot-pill
 ^-  pill:pill
 ::  sys: root path to boot system, `/~me/[desk]/now/sys`
@@ -53,57 +56,16 @@
 ::
 ::  compiler-twig: compiler as hoon expression
 ::
-~&  %brass-parsing
+~&  %tin-parsing
 =+  compiler-twig=(rain /sys/hoon/hoon compiler-source)
-~&  %brass-parsed
+~&  %tin-parsed
 ::
 ::  compiler-formula: compiler as nock formula
 ::
-~&  %brass-compiling
+~&  %tin-compiling
 =+  compiler-formula=q:(~(mint ut %noun) %noun compiler-twig)
-~&  %brass-compiled
+~&  %tin-compiled
 ::
-::  arvo-source: hoon source file producing arvo kernel, `sys/arvo`
-::
-=+  arvo-source=.^(@t %cx (welp sys /arvo/hoon))
-::
-::  boot-ova: startup events
-::
-=/  boot-ova=(list)
-  :~  aeon:eden:part
-      boot:eden:part
-      compiler-formula
-      compiler-source
-      arvo-source
-  ==
-~&  "boot-ova finished"
-::  a pill is a 3-tuple of event-lists: [boot kernel userspace]
-::
-:: :+  %pill  %brass
-:: :+  boot-ova
-  :: :~  (boot-ovum:pill compiler-source arvo-source)
-      :: (file-ovum2:pill bas)
-  :: ==
-:: %+  turn
-  :: (snoc dez [%base bas])
-:: file-ovum:pill
-=/  bo  (boot-ovum:pill compiler-source arvo-source)
-~&  "bo finished"
-=/  fo2  (file-ovum2:pill bas)
-~&  "fo2 finished"
-:: =/  fo  file-ovum:pill
-:: ~&  "fo finished"
-=/  fot
-  %+  turn
-  (snoc dez [%base bas])
-  file-ovum:pill
-~&  "fot finished"
-=/  res  :+  %pill  %brass
-:+  boot-ova
-  :~  bo
-      fo2
-  ==
-fot
-~&  "pill finished"
-res
-
+::[%pill %tin ~[compiler-formula] ~ ~]
+:+  %pill  %tin 
+:+  ~[compiler-formula]  ~  ~

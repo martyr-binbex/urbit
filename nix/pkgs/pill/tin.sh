@@ -88,8 +88,9 @@ echo "commit"
 herb ./pier -p hood -d "+hood/commit %stage"
 #echo "unmount"
 #herb ./pier -p hood -d "+hood/unmount %stage"
-echo "+solid"
-herb ./pier -P solid.pill -d '+solid /=stage=/sys, =dub &'
+echo "+tin"
+#herb ./pier -P solid.pill -d '+tin2 /=stage=/sys, =dub &'
+herb ./pier -P tin.pill -d '+tin'
 echo "exit"
 herb ./pier -p hood -d '+hood/exit'
 

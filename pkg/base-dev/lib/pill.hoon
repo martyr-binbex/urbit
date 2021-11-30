@@ -26,11 +26,14 @@
 ::
 ++  boot-ovum
   |=  [hoon=cord arvo=cord]
-  :~  //arvo
+  :: ~&  "boot-ovum starting"
+  =/  res  :~  //arvo
       %what
       [/sys/hoon hoon/hoon]
       [/sys/arvo hoon/arvo]
   ==
+  ~&  "boot-ovum finished"
+  res
 ::  +file-ovum: userspace filesystem load
 ::
 ::    bas: full path to / directory
@@ -49,6 +52,7 @@
     ==
   |=  [des=desk bas=path]
   ^-  unix-event
+  :: ~&  "file-ovum starting"
   %.  directories
   |=  ::  sal: all spurs to load from
       ::
@@ -84,16 +88,25 @@
   =/  all  ~(tap by dir.lon)
   |-  ^+  hav
   ?~  all  hav
-  $(all t.all, hav ^$(tyl [p.i.all tyl]))
+  =/  res  $(all t.all, hav ^$(tyl [p.i.all tyl]))
+  :: ~&  "file-ovum finished"
+  res
 ::
 ::  +file-ovum2: electric boogaloo
 ::
-++  file-ovum2  |=(p=path `unix-event`[//arvo what/(user-files p)])
+++  file-ovum2  
+|=  p=path 
+:: ~&  "file-ovum2 starting"
+=/  res  `unix-event`[//arvo what/(user-files p)]
+:: ~&  "file-ovum2 finished"
+res
 ::
 ::  +user-files: all userspace hoon files
 ::
 ++  user-files
   |=  bas=path
+  ~&  "user-files starting"
+  ~&  bas
   %.  directories:file-ovum
   |=  sal=(list spur)
   ^-  (list (pair path (cask)))
@@ -127,5 +140,7 @@
   =/  all  ~(tap by dir.lon)
   |-  ^+   hav
   ?~  all  hav
-  $(all t.all, hav ^$(tyl [p.i.all tyl]))
+  =/  res  $(all t.all, hav ^$(tyl [p.i.all tyl]))
+  :: ~&  "user-files finished"
+  res
 --

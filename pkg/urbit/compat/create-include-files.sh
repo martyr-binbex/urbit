@@ -2,6 +2,8 @@
 # support running off a tarball that doesn't contain binary pills
 (( $($1 ../../bin/ivory.pill) > 512 )) || curl -L https://github.com/urbit/urbit/raw/urbit-v$URBIT_VERSION/bin/ivory.pill > ../../bin/ivory.pill
 
+echo "running create-include-files to create ivory pill"
+
 poor_mans_xxd () {
   cch=0
   echo "unsigned char $2[] = {"
