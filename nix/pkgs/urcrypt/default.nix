@@ -1,5 +1,5 @@
 { stdenv, autoreconfHook, pkgconfig
-, libaes_siv, openssl, secp256k1
+, libaes_siv, openssl, secp256k1, libecc
 , enableStatic ? stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
@@ -18,4 +18,17 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs =
     [ openssl secp256k1 libaes_siv ];
+
+  buildInputs = [ libecc ];
+
+  installPhase = ''
+    echo hello 
+    pwd 
+    ls ${libecc}
+  '';
+
+  shellHook = '' 
+    LIBECC_LIBS="${libecc}
+  ''
+
 }

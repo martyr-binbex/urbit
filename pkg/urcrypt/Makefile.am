@@ -32,6 +32,7 @@ liburcrypt_la_CPPFLAGS = -I$(srcdir)/ed25519/src \
 liburcrypt_la_LIBADD = $(LIBCRYPTO_LIBS) \
 		       $(LIBSECP256K1_LIBS) \
 		       $(LIBAES_SIV_LIBS) \
+			   $(LIBECC_LIBS) \
 		       libed25519.la \
 		       libge_additions.la \
 		       libargon2.la \
@@ -39,7 +40,8 @@ liburcrypt_la_LIBADD = $(LIBCRYPTO_LIBS) \
 		       libscrypt.la
 liburcrypt_la_CFLAGS = $(LIBCRYPTO_CFLAGS) \
 		       $(LIBSECP256K1_CFLAGS) \
-		       $(LIBAES_SIV_CFLAGS)
+		       $(LIBAES_SIV_CFLAGS) \
+			   $(LIBECC_LIBS)
 # urcrypt_ is used for public symbols, urcrypt__ for internal.
 liburcrypt_la_LDFLAGS = -export-symbols-regex '^urcrypt_[^_]' \
 												-version-info $(URCRYPT_LT_VERSION)

@@ -49,12 +49,12 @@
         "branch": "master",
         "description": "Library for elliptic curves cryptography",
         "homepage": "",
-        "owner": "martyr-binbex",
+        "owner": "ANSSI-FR",
         "repo": "libecc",
-        "rev": "ef98030712da912f1a0c946ce8f8751927f8ac87",
-        "sha256": "13jkn0k52zgd1c12ky118ww1hpnan9c2pk7hq60car06fnbjqc1k",
+        "rev": "7d97891ceca383e298c48b2f802894db9ba03675",
+        "sha256": "0vi7xn2zsr45qvmdr5rs26bxw1sng6xz5labgq1kjpckxz1cw1wq",
         "type": "tarball",
-        "url": "https://github.com/martyr-binbex/libecc/archive/ef98030712da912f1a0c946ce8f8751927f8ac87.tar.gz",
+        "url": "https://github.com/ANSSI-FR/libecc/archive/7d97891ceca383e298c48b2f802894db9ba03675.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "murmur3": {

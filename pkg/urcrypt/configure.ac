@@ -55,7 +55,8 @@ PKG_INSTALLDIR
 AC_PROG_CC
 
 # Checks for pkg-config capable libraries
-PKG_CHECK_MODULES([LIBSECP256K1], [libsecp256k1])
+#PKG_CHECK_MODULES([LIBECC], [libarith.a])
+#PKG_CHECK_MODULES([LIBSECP256K1], [libsecp256k1])
 AC_CHECK_HEADER([secp256k1_recovery.h], [],
                 [AC_MSG_ERROR([libsecp256k1 must have recovery enabled.])])
 AC_CHECK_HEADER([secp256k1_schnorrsig.h], [],

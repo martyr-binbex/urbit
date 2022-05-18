@@ -9,6 +9,8 @@ markfil=.$1~
 depdirs=
 nixpath=${NIX_STORE-../build}
 
+aoeuaoeu 
+
 : "${MAKE:=make}"
 
 # LDFLAGS doesn't like absolute paths
