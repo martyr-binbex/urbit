@@ -6,8 +6,22 @@
 #include <secp256k1_recovery.h>
 #include <secp256k1_preallocated.h>
 #include <secp256k1_schnorrsig.h>
+// #include <libec.h>
 
 #define SECP_FLAGS SECP256K1_CONTEXT_VERIFY | SECP256K1_CONTEXT_SIGN
+
+
+// int urcrpt_pedersen(ec_params *curve_params)
+// {
+// int ret = 0;
+// fp x, y;
+// fp_ctx_src_t ctx;
+// ctx = &(curve_params->ec_fp);
+//
+// ret = fp_init(&x, ctx);
+//
+// return ret;
+// }
 
 struct urcrypt_secp_context_struct {
   secp256k1_context* secp;

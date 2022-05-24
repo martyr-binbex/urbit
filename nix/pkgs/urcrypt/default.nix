@@ -18,4 +18,19 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs =
     [ openssl secp256k1 libaes_siv ];
+
+  # buildInputs = [ libecc ];
+
+  #buildPhase = ''
+  #  NIX_CFLAGS_COMPILE="-DWITH_STDLIB $NIX_CFLAGS_COMPILE"
+  #  make
+  #'';
+
+  #installPhase = ''
+    #echo hello 
+    #ls ${libecc}
+    #declare
+  #'';
+
+
 }
