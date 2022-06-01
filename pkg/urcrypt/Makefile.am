@@ -7,7 +7,7 @@ noinst_LTLIBRARIES = libed25519.la \
 		     libge_additions.la \
 		     libargon2.la \
 		     libkeccak_tiny.la \
-		     libscrypt.la
+		     libscrypt.la 
 
 include_HEADERS = urcrypt/urcrypt.h
 noinst_HEADERS = urcrypt/util.h \
@@ -18,6 +18,9 @@ noinst_HEADERS = urcrypt/util.h \
 		 argon2/src/blake2/blake2.h \
 		 scrypt/sha256.h \
 		 scrypt/libscrypt.h
+
+#noinst_LIBRARIES = libec.a \
+#                libarith.a
 
 # main library
 pkgconfig_DATA = liburcrypt-$(URCRYPT_API_VERSION).pc
@@ -32,7 +35,13 @@ liburcrypt_la_CPPFLAGS = -I$(srcdir)/ed25519/src \
 liburcrypt_la_LIBADD = $(LIBCRYPTO_LIBS) \
 		       $(LIBSECP256K1_LIBS) \
 		       $(LIBAES_SIV_LIBS) \
-			   $(LIBECC_LIBS) \
+			   #aes_siv \
+			   #libarith.a \
+			   #libec.a \
+			   #$(LIBARITH_LIBS) \
+			   #$(LIBEC_LIBS) \
+			   libec.a \
+			   libarith.a \
 		       libed25519.la \
 		       libge_additions.la \
 		       libargon2.la \
@@ -57,7 +66,8 @@ liburcrypt_la_SOURCES = urcrypt/aes_cbc.c \
 			urcrypt/secp256k1.c \
 			urcrypt/sha.c \
 			urcrypt/util.c \
-			urcrypt/util.h
+			urcrypt/util.h \
+			urcrypt/pedersen.c 
 
 # ed25519
 libed25519_la_CFLAGS = -Wno-unused-result

@@ -56,7 +56,7 @@ AC_PROG_CC
 
 # Checks for pkg-config capable libraries
 #PKG_CHECK_MODULES([LIBECC], [libarith.a])
-#PKG_CHECK_MODULES([LIBSECP256K1], [libsecp256k1])
+PKG_CHECK_MODULES([LIBSECP256K1], [libsecp256k1])
 AC_CHECK_HEADER([secp256k1_recovery.h], [],
                 [AC_MSG_ERROR([libsecp256k1 must have recovery enabled.])])
 AC_CHECK_HEADER([secp256k1_schnorrsig.h], [],
@@ -88,6 +88,17 @@ AC_CHECK_LIB([aes_siv], [AES_SIV_CTX_new],
              [AC_SUBST([LIBAES_SIV_LIBS], "-laes_siv")],
              [AC_MSG_ERROR([libaes_siv is required.])],
              [-lcrypto])
+
+#AC_CHECK_LIB([libarith], [_nn_zero],
+#             [AC_SUBST([LIBARITH_LIBS], "-llibarith")],
+#             [AC_MSG_ERROR([libarith is required.])])
+      
+#AC_CHECK_LIB([libec], [import_params],
+#             [AC_SUBST([LIBEC_LIBS], "-llibec")],
+#             [AC_MSG_ERROR([libec is required.])])
+
+
+#AC_SUBST([LIBARITH_LIBS], "-llibarith")]
 
 # Checks for header files.
 AC_CHECK_HEADERS([limits.h stddef.h stdint.h stdlib.h string.h])
