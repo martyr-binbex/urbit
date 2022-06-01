@@ -13,11 +13,12 @@ stdenv.mkDerivation rec {
     then [ "--disable-shared" "--enable-static" ]
     else [];
 
-  configurePhase = ''
-    echo "runing configure"
-    declare -p
-    ./configure --disable-silent-rules
-  '';
+#  configurePhase = ''
+#    ./configure
+#    echo "runing configure"
+#    declare -p
+#    ./configure --disable-silent-rules
+#  '';
 
   nativeBuildInputs =
     [ autoreconfHook pkgconfig ];
@@ -27,11 +28,18 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libecc ];
 
-  buildPhase = ''
-    declare -F
-    NIX_CFLAGS_COMPILE="-DWITH_STDLIB $NIX_CFLAGS_COMPILE" # needed for libecc
-    make
-  '';
+  #buildFlags = [ "WITH_STDLIB=1" ];
+
+  #preBuildPhases = [ blahPhase ];
+
+#  blahPhase = ''
+#    export NIX_CFLAGS_COMPILE="-DWITH_STDLIB" # needed for libecc
+#  '';
+
+#buildPhase = ''
+#    declare -p
+#    make
+#  '';
 
   #installPhase = ''
     #echo hello 
