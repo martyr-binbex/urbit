@@ -13,11 +13,11 @@ stdenv.mkDerivation rec {
     then [ "--disable-shared" "--enable-static" ]
     else [];
 
-#  configurePhase = ''
+# configurePhase = ''
 #    ./configure
 #    echo "runing configure"
 #    declare -p
-#    ./configure --disable-silent-rules
+#    ./configure 
 #  '';
 
   nativeBuildInputs =

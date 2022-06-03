@@ -20,10 +20,20 @@ get_curve_params(ec_params *curve_params) {
   return ret;
 }
 
+typedef struct {
+  prj_pt p0;
+  prj_pt p1;
+  prj_pt p2;
+  prj_pt p3;
+  prj_pt p4;
+} constant_points;
+
+//static constant_points *cp = NULL;
+
 int
-get_constant_points(ec_params *curve_params) {
-  fp_ctx_src_t ctx;
-  ctx = &(curve_params->ec_fp);
+get_constant_points(ec_params *curve_params, constant_points* cp) {
+  int ret = 0;
+  ec_shortw_crv_src_t crv = &(curve_params->ec_curve);
 
   const u8 p0_buf[] = {
     // x coordinate
@@ -72,7 +82,7 @@ get_constant_points(ec_params *curve_params) {
     0x04, 0xba, 0x4c, 0xc1, 0x66, 0xbe, 0x8d, 0xec,
     0x76, 0x49, 0x10, 0xf7, 0x5b, 0x45, 0xf7, 0x4b,
     0x40, 0xc6, 0x90, 0xc7, 0x47, 0x09, 0xe9, 0x0f,
-    0x3a, 0xa3, 0x72, 0xf0, 0xbd, 0x2d, 0x69, 0x97
+    0x3a, 0xa3, 0x72, 0xf0, 0xbd, 0x2d, 0x69, 0x97,
 
     // y coordinate
     0x00, 0x40, 0x30, 0x1c, 0xf5, 0xc1, 0x75, 0x1f,
@@ -95,42 +105,153 @@ get_constant_points(ec_params *curve_params) {
     0x87, 0x9d, 0xcc, 0x77, 0xe9, 0x9c, 0x24, 0x26
   };
 
-
-
-
-
-}
-
-
-int
-urcrypt_pedersen(uint8_t x[32], uint8_t y[32], uint8_t out[32])
-{
-  int ret = 0;
-  fp x1, y1;
-  fp_ctx_src_t ctx;
-  printf("10\r\n");
-  printf("11\r\n")e
-  //ctx = &(curve_params->ec_fp);
-
-  printf("x = %d\r\n", *x);
-  printf("y = %d\r\n", *y);
-
-  urcrypt__reverse(32, x);
-  urcrypt__reverse(32, y);
-
-
-  ec_params curve_params;
-  ret = get_curve_params(&curve_params);
-  printf("got curve params\r\n");
+  ret = prj_pt_import_from_aff_buf(&(cp->p0), p0_buf, 64, crv);
   if (ret != 0) {
     return ret;
   }
-  fp_ctx c = curve_params.ec_fp;
-  const char *name = (const char *)curve_params.curve_name;
-  printf("curve name = %s\r\n", name);;
 
-  *out = 5;
+  ret = prj_pt_import_from_aff_buf(&(cp->p1), p1_buf, 64, crv);
+  if (ret != 0) {
+    return ret;
+  }
 
+  ret = prj_pt_import_from_aff_buf(&(cp->p2), p2_buf, 64, crv);
+  if (ret != 0) {
+    return ret;
+  }
+
+  ret = prj_pt_import_from_aff_buf(&(cp->p3), p3_buf, 64, crv);
+  if (ret != 0) {
+    return ret;
+  }
+
+  ret = prj_pt_import_from_aff_buf(&(cp->p4), p4_buf, 64, crv);
+  return ret;
+}
+
+void
+print_buf(uint8_t *buf, u16 len) {
+  int i;
+  for(i = 0; i < len; i++) {
+    printf("%x ", buf[i]);
+  }
+  printf("\r\n");
+}
+
+int
+urcrypt_pedersen(uint8_t a[32], uint8_t b[32], uint8_t out[32])
+{
+  int ret = 0;
+
+  printf("a= ");
+  print_buf(a, 32);
+  printf("b= ");
+  print_buf(b, 32);
+
+  urcrypt__reverse(32, a);
+  urcrypt__reverse(32, b);
+
+  printf("a= ");
+  print_buf(a, 32);
+  printf("b= ");
+  print_buf(b, 32);
+
+  ec_params curve_params;
+  ret = get_curve_params(&curve_params);
+  if (ret != 0) {
+    return ret;
+  }
+
+  constant_points cp;
+  ret = get_constant_points(&curve_params, &cp);
+  if (ret != 0) {
+    return ret;
+  }
+
+  nn alow, ahig, blow, bhig;
+  ret = nn_init_from_buf(&alow, a+1, 31);
+  if (ret != 0) {
+    return ret;
+  }
+  ret = nn_init_from_buf(&ahig, a, 1);
+  if (ret != 0) {
+    return ret;
+  }
+  ret = nn_init_from_buf(&blow, b+1, 31);
+  if (ret != 0) {
+    return ret;
+  }
+  ret = nn_init_from_buf(&bhig, b, 1);
+  if (ret != 0) {
+    return ret;
+  }
+
+  uint8_t alow_buf[32], ahig_buf[32], blow_buf[32], bhig_buf[32];
+  nn_export_to_buf(alow_buf, 32, &alow);
+  nn_export_to_buf(ahig_buf, 32, &ahig);
+  nn_export_to_buf(blow_buf, 32, &blow);
+  nn_export_to_buf(bhig_buf, 32, &bhig);
+  printf("alow= ");
+  print_buf(alow_buf, 32);
+  printf("ahig= ");
+  print_buf(ahig_buf, 32);
+  printf("blow= ");
+  print_buf(blow_buf, 32);
+  printf("bhig= ");
+  print_buf(bhig_buf, 32);
+
+
+  prj_pt p1_alow, p2_ahig, p3_blow, p4_bhig;
+  ret = prj_pt_mul(&p1_alow, &alow, &(cp.p1));
+  if (ret != 0) {
+    return ret;
+  }
+
+  ret = prj_pt_mul(&p2_ahig, &ahig, &(cp.p2));
+  if (ret != 0) {
+    return ret;
+  }
+
+  ret = prj_pt_mul(&p3_blow, &blow, &(cp.p3));
+  if (ret != 0) {
+    return ret;
+  }
+
+  ret = prj_pt_mul(&p4_bhig, &bhig, &(cp.p4));
+  if (ret != 0) {
+    return ret;
+  }
+
+  prj_pt sum;
+  ret = prj_pt_add(&sum, &(cp.p0), &p1_alow);
+  if (ret != 0) {
+    return ret;
+  }
+  ret = prj_pt_add(&sum, &sum, &p2_ahig);
+  if (ret != 0) {
+    return ret;
+  }
+  ret = prj_pt_add(&sum, &sum, &p3_blow);
+  if (ret != 0) {
+    return ret;
+  }
+  ret = prj_pt_add(&sum, &sum, &p4_bhig);
+  if (ret != 0) {
+    return ret;
+  }
+
+  prj_pt aff;
+  ret = prj_pt_unique(&aff, &sum);
+  if (ret != 0) {
+    return ret;
+  }
+
+  ret = fp_export_to_buf(out, 32, &(aff.X));
+
+  printf("out= ");
+  print_buf(out, 32);
   urcrypt__reverse(32, out);
+  printf("out= ");
+  print_buf(out, 32);
   return ret;
 }

@@ -93,10 +93,15 @@ AC_CHECK_LIB([arith], [nn_zero],
              [AC_SUBST([LIBARITH_LIBS], "-larith")],
              [AC_MSG_ERROR([libarith is required.])])
       
-AC_CHECK_LIB([ec], [ec_get_curve_params_by_name],
-             [AC_SUBST([LIBEC_LIBS], "-lec")],
-             [AC_MSG_ERROR([libec is required.])],
-             [-larith])
+#AC_CHECK_LIB([ec], [prj_pt_import_from_aff_buf],
+#AC_CHECK_LIB([sign], [prj_pt_zero],
+#             [AC_SUBST([LIBEC_LIBS], "-lsign")],
+#             [AC_MSG_ERROR([libec is required.])])
+
+#AC_CHECK_LIB([ec], [ec_get_curve_params_by_name],
+#             [AC_SUBST([LIBEC_LIBS], "-lec")],
+#             [AC_MSG_ERROR([libec is required.])],
+#             [-larith])
 
 # Checks for header files.
 AC_CHECK_HEADERS([limits.h stddef.h stdint.h stdlib.h string.h])

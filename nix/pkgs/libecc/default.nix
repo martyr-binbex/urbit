@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/include
     mkdir -p $out/lib/pkgconfig
-    cp build/libarith.a build/libec.a $out/lib
+    cp build/libarith.a build/libec.a build/libsign.a $out/lib
     cp libecc.pc $out/lib/pkgconfig
     cd src
     cp --parents `find -name \*.h` $out/include

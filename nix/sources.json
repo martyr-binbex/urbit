@@ -51,10 +51,10 @@
         "homepage": "",
         "owner": "martyr-binbex",
         "repo": "libecc",
-        "rev": "ef98030712da912f1a0c946ce8f8751927f8ac87",
-        "sha256": "13jkn0k52zgd1c12ky118ww1hpnan9c2pk7hq60car06fnbjqc1k",
+        "rev": "7879bc8b4a78e06a40526fc0531ad7a40c165024",
+        "sha256": "1dvjvxn9g95lzlgnswc265qxyq7xzi2ykgn0zshxj19z44icwbnl",
         "type": "tarball",
-        "url": "https://github.com/martyr-binbex/libecc/archive/ef98030712da912f1a0c946ce8f8751927f8ac87.tar.gz",
+        "url": "https://github.com/martyr-binbex/libecc/archive/7879bc8b4a78e06a40526fc0531ad7a40c165024.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "murmur3": {

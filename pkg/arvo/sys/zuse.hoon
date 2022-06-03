@@ -2217,12 +2217,16 @@
               292.063.708.816.422
       ++  hash
         ~/  %phash
-        ~&  >  "calling phash hoon"
         |=  [a=@ b=@]
+        ~&  >  "calling phash hoon"
         =+  alow=(mod a (bex 248))
         =+  ahig=(rsh [0 248] a)
         =+  blow=(mod b (bex 248))
         =+  bhig=(rsh [0 248] b)
+        ~&  >  "alow={<alow>}"
+        ~&  >  "ahig={<ahig>}"
+        ~&  >  "blow={<blow>}"
+        ~&  >  "bhig={<bhig>}"
         =-  x
         ;:  add-points
           p0
