@@ -3,11 +3,23 @@
 #include <string.h>
 #include <libec.h>
 #include <stdio.h>
+#include <stdlib.h>
 
+typedef struct {
+  prj_pt p0;
+  prj_pt p1;
+  prj_pt p2;
+  prj_pt p3;
+  prj_pt p4;
+} constant_points;
+
+static constant_points *cp = NULL;
+static ec_params *curve_params = NULL;
 
 int
 get_curve_params(ec_params *curve_params) {
   int ret;
+  printf("inside get_curve_params\r\n");
   u8 curve_name[MAX_CURVE_NAME_LEN] = "USER_DEFINED_STARK";
   u32 len = strnlen((const char *)curve_name, MAX_CURVE_NAME_LEN);
   len += 1;
@@ -20,21 +32,12 @@ get_curve_params(ec_params *curve_params) {
   return ret;
 }
 
-typedef struct {
-  prj_pt p0;
-  prj_pt p1;
-  prj_pt p2;
-  prj_pt p3;
-  prj_pt p4;
-} constant_points;
-
-//static constant_points *cp = NULL;
-
 int
 get_constant_points(ec_params *curve_params, constant_points* cp) {
   int ret = 0;
   ec_shortw_crv_src_t crv = &(curve_params->ec_curve);
 
+  printf("inside get_constant_points\r\n");
   const u8 p0_buf[] = {
     // x coordinate
     0x04, 0x9e, 0xe3, 0xeb, 0xa8, 0xc1, 0x60, 0x07,
@@ -156,16 +159,26 @@ urcrypt_pedersen(uint8_t a[32], uint8_t b[32], uint8_t out[32])
   printf("b= ");
   print_buf(b, 32);
 
-  ec_params curve_params;
-  ret = get_curve_params(&curve_params);
-  if (ret != 0) {
-    return ret;
+  if (curve_params == NULL) {
+    printf("initializing curve_params\r\n");
+    curve_params = (ec_params *)malloc(sizeof(ec_params));
+    ret = get_curve_params(curve_params);
+    if (ret != 0) {
+      return ret;
+    }
+  } else {
+    printf("curve_params already initialized\r\n");
   }
 
-  constant_points cp;
-  ret = get_constant_points(&curve_params, &cp);
-  if (ret != 0) {
-    return ret;
+  if (cp == NULL) {
+    printf("initializing constant points\r\n");
+    cp = (constant_points *)malloc(sizeof(constant_points));
+    ret = get_constant_points(curve_params, cp);
+    if (ret != 0) {
+      return ret;
+    }    
+  } else {
+    printf("constant points already initialized\r\n");
   }
 
   nn alow, ahig, blow, bhig;
@@ -202,28 +215,28 @@ urcrypt_pedersen(uint8_t a[32], uint8_t b[32], uint8_t out[32])
 
 
   prj_pt p1_alow, p2_ahig, p3_blow, p4_bhig;
-  ret = prj_pt_mul(&p1_alow, &alow, &(cp.p1));
+  ret = prj_pt_mul(&p1_alow, &alow, &(cp->p1));
   if (ret != 0) {
     return ret;
   }
 
-  ret = prj_pt_mul(&p2_ahig, &ahig, &(cp.p2));
+  ret = prj_pt_mul(&p2_ahig, &ahig, &(cp->p2));
   if (ret != 0) {
     return ret;
   }
 
-  ret = prj_pt_mul(&p3_blow, &blow, &(cp.p3));
+  ret = prj_pt_mul(&p3_blow, &blow, &(cp->p3));
   if (ret != 0) {
     return ret;
   }
 
-  ret = prj_pt_mul(&p4_bhig, &bhig, &(cp.p4));
+  ret = prj_pt_mul(&p4_bhig, &bhig, &(cp->p4));
   if (ret != 0) {
     return ret;
   }
 
   prj_pt sum;
-  ret = prj_pt_add(&sum, &(cp.p0), &p1_alow);
+  ret = prj_pt_add(&sum, &(cp->p0), &p1_alow);
   if (ret != 0) {
     return ret;
   }
