@@ -439,7 +439,7 @@ static c3_c* _140_hex_secp_pedersen_phash_ha[] = { 0 };
 static u3j_harm _140_hex_secp_pedersen_phash_a[] = {{".2", u3we_phash, c3y}, {}};
 
 static u3j_core _140_hex_secp_pedersen_d[] =
-  { { "phash", 7, _140_hex_secp_pedersen_phash_a, 0, _140_hex_secp_pedersen_phash_ha },
+  { { "phash-zuse", 7, _140_hex_secp_pedersen_phash_a, 0, _140_hex_secp_pedersen_phash_ha },
     {}
   };
 
@@ -506,6 +506,33 @@ static c3_c* _140_hex_ripe_ha[] = {
   0
 };
 
+static c3_c* _140_hex_fred_ped_phash_ha[] = {
+  "7e393356dd7ac64eed5cd9f5cf0e320d401ca36a0a0ce0f954e7538824114844",
+  0
+};
+
+static u3j_harm _140_hex_ped_pedersen_phash_a[] = {{".2", u3we_phash, c3y}, {}};
+
+static u3j_core _140_hex_ped_pedersen_d[] = {
+  { "phash", 7, _140_hex_ped_pedersen_phash_a, 0, _140_hex_fred_ped_phash_ha },
+  {}
+};
+
+static c3_c* _140_hex_ped_pedersen_ha[] = {
+"7e393356dd7ac64eed5cd9f5cf0e320d401ca36a0a0ce0f954e7538824114844",
+0
+};
+
+
+static c3_c* _140_hex_ped_ha[] = {
+  "7e393356dd7ac64eed5cd9f5cf0e320d401ca36a0a0ce0f954e7538824114844",
+  0
+};
+
+static u3j_core _140_hex_ped_d[] = {
+{ "pedersen", 3, 0, _140_hex_ped_pedersen_d, _140_hex_ped_pedersen_ha },
+{}
+};
 
 static u3j_core _140_hex_d[] =
 { { "lore",   63, _140_hex_lore_a, 0, _140_hex_lore_ha },
@@ -524,8 +551,10 @@ static u3j_core _140_hex_d[] =
   { "scr",    31, 0, _140_hex_scr_d,   _140_hex_scr_ha   },
   { "secp",    6, 0, _140_hex_secp_d,  _140_hex_secp_ha },
   { "mimes",  31, 0, _140_hex_mimes_d, _140_hex_mimes_ha  },
+  { "ped",   31, 0, _140_hex_ped_d,   _140_hex_ped_ha },
   {}
 };
+
 static c3_c* _140_hex_ha[] = {
   "7e393356dd7ac64eed5cd9f5cf0e320d401ca36a0a0ce0f954e7538824114844",
   0
