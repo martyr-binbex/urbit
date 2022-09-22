@@ -27,7 +27,7 @@ u3je_pedersen_stop()
   cxt_u = NULL;
 }
 
-static u3_noun
+u3_noun
 _cqe_phash(u3_atom a, u3_atom b)
 {
   c3_y *a_buf_y, *b_buf_y, out_y[32];

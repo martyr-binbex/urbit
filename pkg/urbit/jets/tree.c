@@ -534,6 +534,33 @@ static u3j_core _140_hex_ped_d[] = {
 {}
 };
 
+static u3j_harm _140_hex_smart_two_shag_a[] = {{".2", u3we_shag, c3y}, {}};
+
+static c3_c* _140_hex_smart_two_shag_ha[] = {
+  "b0cb16bf206c0496bb480e5759ea1afa7dee1748b64e5243c23fddb09720ebd0",
+  0
+};
+
+static u3j_core _140_hex_smart_two_d[] = {
+  { "shag", 7, _140_hex_smart_two_shag_a, 0, _140_hex_smart_two_shag_ha },
+  {}
+};
+
+static c3_c* _140_hex_smart_two_ha[] = {
+  "b0cb16bf206c0496bb480e5759ea1afa7dee1748b64e5243c23fddb09720ebd0",
+  0
+};
+
+static c3_c* _140_hex_smart_one_ha[] = {
+  "7e393356dd7ac64eed5cd9f5cf0e320d401ca36a0a0ce0f954e7538824114844",
+  0
+};
+
+static u3j_core _140_hex_smart_one_d[] = {
+  { "smart-two", 3, 0, _140_hex_smart_two_d, _140_hex_smart_two_ha },
+  {}
+};
+
 static u3j_core _140_hex_d[] =
 { { "lore",   63, _140_hex_lore_a, 0, _140_hex_lore_ha },
   { "leer",   63, _140_hex_leer_a, 0, _140_hex_leer_ha },
@@ -552,6 +579,7 @@ static u3j_core _140_hex_d[] =
   { "secp",    6, 0, _140_hex_secp_d,  _140_hex_secp_ha },
   { "mimes",  31, 0, _140_hex_mimes_d, _140_hex_mimes_ha  },
   { "ped",   31, 0, _140_hex_ped_d,   _140_hex_ped_ha },
+  { "smart-one",   31, 0, _140_hex_smart_one_d, _140_hex_smart_one_ha },
   {}
 };
 

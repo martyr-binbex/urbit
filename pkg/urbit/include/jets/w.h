@@ -210,6 +210,7 @@
     u3_noun u3we_sove(u3_noun);
 
     u3_noun u3we_phash(u3_noun);
+    u3_noun _cqe_phash(u3_atom, u3_atom);
 
     u3_noun u3we_en_base16(u3_noun);
     u3_noun u3we_de_base16(u3_noun);
@@ -242,6 +243,7 @@
     u3_noun u3wer_equ(u3_noun);
     u3_noun u3wer_gte(u3_noun);
     u3_noun u3wer_gth(u3_noun);
+    u3_noun u3we_shag(u3_noun);
 
     u3_noun u3wet_add(u3_noun);
     u3_noun u3wet_sub(u3_noun);
