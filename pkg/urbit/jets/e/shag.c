@@ -18,7 +18,6 @@ u3qe_shag(u3_noun n)
 u3_noun
 u3we_shag(u3_noun cor)
 {
-  printf("running shag jet\r\n");
   u3_noun n;
   if ( c3n == u3r_mean(cor, u3x_sam, &n, 0) )
   {
